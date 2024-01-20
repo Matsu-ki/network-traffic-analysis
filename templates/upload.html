@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title>Análise</title>
+</head>
+<body>
+    <section>
+        <h2 class="title">Resultados Obtidos</h2>
+        <div class="loader"></div>
+        <div class="faq">
+            <div class="question">
+                <h3>Total de Pacotes</h3>
+
+                <svg width="15" height="10" viewBox="0 0 42 25">
+                    <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <div class="answer">
+              <p>
+                {{ result[0] }}
+              </p>  
+            </div>
+        </div>
+
+
+        <div class="faq">
+            <div class="question">
+                <h3>Possibilidade de Ataque</h3>
+
+                <svg width="15" height="10" viewBox="0 0 42 25">
+                    <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <div class="answer">
+              <p>
+                {{ result[1] }}
+              </p>  
+            </div>
+        </div>
+
+        <div class="faq">
+            <div class="question">
+                <h3>Tipo de Ataque</h3>
+
+                <svg width="15" height="10" viewBox="0 0 42 25">
+                    <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <div class="answer">
+              <p>
+                {{ result[2] }}
+              </p>  
+            </div>
+        </div>
+
+        <div class="faq">
+            <div class="question">
+                <h3>Análise Geral</h3>
+
+                <svg width="15" height="10" viewBox="0 0 42 25">
+                    <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <div class="answer">
+              <p>
+                {{ result[3]  }}
+              </p>  
+            </div>
+        </div>
+
+        <div class="faq">
+            <div class="question">
+                <h3>Gráfico de Linha ao Longo do Tempo</h3>
+                <svg width="15" height="10" viewBox="0 0 42 25">
+                    <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="answer">
+                <canvas id="lineChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+
+        <script>
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+        
+            // Dados iniciais para o gráfico (exemplo)
+            var initialData = {
+                labels: ["Label1", "Label2", "Label3"],
+                data: [10, 20, 30]
+            };
+        
+            // Configuração inicial do gráfico
+            var ctx = document.getElementById('lineChart').getContext('2d');
+            var lineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: initialData.labels,
+                    datasets: [{
+                        label: 'Dados Importantes',
+                        data: initialData.data,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        
+            // Atualize o gráfico quando receber dados do servidor
+            socket.on('update', function (msg) {
+                // Atualize os dados do gráfico
+                lineChart.data.labels = msg.labels;
+                lineChart.data.datasets[0].data = msg.data;
+        
+                // Atualize o gráfico
+                lineChart.update();
+            });
+        </script>
+        
+        
+        <!-- Adicione uma tag de imagem no seu HTML -->
+        <canvas id="lineChart" width="400" height="200"></canvas>
+
+    </section>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #1c1c1c;
+    color: #fff;
+}
+
+section {
+    min-height: 100vh;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section h2 {
+    color: #6cc1ff;
+}
+
+.title{
+    font-size: 2.5em;
+    margin: 2rem 0rem;
+}
+
+.faq {
+    max-width: 700px;
+    margin-top: 2rem;
+    margin-bottom: 10px;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #fff;
+    cursor: pointer;
+}
+
+.question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.question h3 {
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1.4s ease;
+}
+
+.answer p {
+    padding-top: 1rem;
+    line-height: 1.6;
+    font-size: 1rem;
+    /*color: #b3b0b0; cinza*/
+    color: #6cc1ff;
+}
+
+.faq.active .answer{
+    max-height: 300px;
+    animation: fade 1s ease-in-out;
+}
+
+.faq.active svg{
+    transform: rotate(180deg);
+}
+
+svg {
+    transition: transform 0.3s ease-in;
+}
+
+
+.loader{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a1a1a;
+    transition: opacity 0.75s, visibility 1.75s;
+}
+
+.loader-hidden{
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader::after{
+    content: "";
+    width: 75px;
+    height: 75px;
+    border: 15px solid #dddddd;
+    border-top-color: #7449f5;
+    border-radius: 50%;
+    animation: loading 0.75s ease infinite;
+}
+
+@keyframes loading{
+    form{
+        transform: rotate(0turn);
+    }
+    to{
+        transform: rotate(1turn);
+    }
+}
+
+@keyframes fade{
+    from{
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0pc);
+    }
+}
+    </style>
+    <script>
+        const faqs = document.querySelectorAll(".faq");
+
+            faqs.forEach((faq) => {
+                faq.addEventListener("click", () => {
+                    faq.classList.toggle("active");
+                });
+            });
+
+            window.addEventListener("load", () => {
+            const loader = document.querySelector(".loader");
+
+            loader.classList.add("loader-hidden");
+
+            loader.addEventListener("transitionend", () => {
+                document.body.removeChild("loader");
+            })
+        })
+    </script>
+</body>
+</html>

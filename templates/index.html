@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_index.css') }}">
+    <title>Neon | Análise PCAP</title>
+</head>
+<body>
+    <nav >
+        <div class="nav-logo">
+            <a href="#">
+                <img src="{{ url_for('static', filename='robot.png') }}">
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li class="link"><a href="#">Home</a></li>
+            <li id="link1" class="link"><a href="#">Features</a></li>
+            <li id="link2" class="link"><a href="#">Pricing</a></li>
+            <li id="link3" class="link"><a href="#">About</a></li>
+        </ul>
+        <!--<button class="btn">Hire Me</button>-->
+    </nav>
+
+    <header class="container" id="blur">
+        <div class="content">
+            <span class="blur"></span>
+            <span class="blur"></span>
+            <h4>IMPULSIONADA POR INTELIGÊNCIA ARTIFICIAL</h4>
+            <H1>Conheça a <span>Neon</span>, IA de análise de arquivos PCAP</H1>
+            <p>
+                Realize análises abrangentes dos seus arquivos .pcap utilizando nossa solução avançada de Inteligência Artificial. 
+                Obtenha feedback instantâneo sobre o comportamento do arquivo e possíveis ameaças. 
+                Carregue seus arquivos .pcap e deixe nossa solução AI-powered trabalhar sua magia.
+            </p>
+            <button class="btn" onclick="toggle()">Vamos começar?</button>
+
+            
+        </div>
+        <div class="image">
+            <img src="{{ url_for('static', filename='image-removebg-preview (7).png') }}">
+        </div>
+    </header>
+
+<div id="popup">
+    <form action="/upload" method="post" enctype="multipart/form-data">
+    <div id="upload" class="modal-d" data-state="0" data-ready="false">
+        <div class="modal__header">
+            <button class="modal__close-button" type="button" onclick="toggle()">
+                <svg class="modal__close-icon" viewBox="0 0 16 16" width="16px" height="16px" aria-hidden="true">
+                    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <polyline points="1,1 15,15" />
+                        <polyline points="15,1 1,15" />
+                    </g>
+                </svg>
+                <span class="modal__sr">Close</span>
+            </button>
+        </div>
+        <div class="modal__body">
+            <div class="modal__col">
+                <!-- up -->
+                <svg class="modal__icon modal__icon--blue" viewBox="0 0 24 24" width="24px" height="24px" aria-hidden="true">
+                    <g fill="none" stroke="hsl(223,90%,50%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle class="modal__icon-sdo69" cx="12" cy="12" r="11" stroke-dasharray="69.12 69.12" />
+                        <polyline class="modal__icon-sdo14" points="7 12 12 7 17 12" stroke-dasharray="14.2 14.2" />
+                        <line class="modal__icon-sdo10" x1="12" y1="7" x2="12" y2="17" stroke-dasharray="10 10" />
+                    </g>
+                </svg>
+                <!-- error -->
+                <svg class="modal__icon modal__icon--red" viewBox="0 0 24 24" width="24px" height="24px" aria-hidden="true" display="none">
+                    <g fill="none" stroke="hsl(3,90%,50%)" stroke-width="2" stroke-linecap="round">
+                        <circle class="modal__icon-sdo69" cx="12" cy="12" r="11" stroke-dasharray="69.12 69.12" />
+                        <line class="modal__icon-sdo14" x1="7" y1="7" x2="17" y2="17" stroke-dasharray="14.2 14.2" />
+                        <line class="modal__icon-sdo14" x1="17" y1="7" x2="7" y2="17" stroke-dasharray="14.2 14.2" />
+                    </g>
+                </svg>
+                <!-- check -->
+                <svg class="modal__icon modal__icon--green" viewBox="0 0 24 24" width="24px" height="24px" aria-hidden="true" display="none">
+                    <g fill="none" stroke="hsl(138,90%,50%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle class="modal__icon-sdo69" cx="12" cy="12" r="11" stroke-dasharray="69.12 69.12" />
+                        <polyline class="modal__icon-sdo14" points="7 12.5 10 15.5 17 8.5" stroke-dasharray="14.2 14.2" />
+                    </g>
+                </svg>
+            </div>
+            <div class="modal__col">
+                <div class="modal__content">
+                    <h2 class="modal__title">Upload do Arquivo</h2>
+                    <p class="modal__message">Selecione um arquivo .pcap do seu computador.</p>
+                    <div class="modal__actions">
+                        <button class="modal__button modal__button--upload" type="button" data-action="file">Escolher Arquivo</button>
+                        <input id="file" name="file" type="file" accept=".pcap" hidden>
+                    </div>
+                    <div class="modal__actions" hidden>
+                        <svg class="modal__file-icon" viewBox="0 0 24 24" width="24px" height="24px" aria-hidden="true">
+                            <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="4 1 12 1 20 8 20 23 4 23" />
+                                <polyline points="12 1 12 8 20 8" />
+                            </g>
+                        </svg>
+                        <div class="modal__file" data-file></div>
+                        <button class="modal__close-button" type="button" data-action="fileReset">
+                            <svg class="modal__close-icon" viewBox="0 0 16 16" width="16px" height="16px" aria-hidden="true">
+                                <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                    <polyline points="4,4 12,12" />
+                                    <polyline points="12,4 4,12" />
+                                </g>
+                            </svg>
+                            <span class="modal__sr">Remover</span>
+                        </button>
+                        <button class="modal__button" type="button" data-action="upload">Upload</button>
+                    </div>
+                </div>
+                <div class="modal__content" hidden>
+                    <h2 class="modal__title">Upando…</h2>
+                    <p class="modal__message">Aguarde enquanto fazemos o upload do arquivo.</p>
+                    <div class="modal__actions">
+                        <div class="modal__progress">
+                            <div class="modal__progress-value" data-progress-value>0%</div>
+                            <div class="modal__progress-bar">
+                                <div class="modal__progress-fill" data-progress-fill></div>
+                            </div>
+                        </div>
+                        <button class="modal__button" type="button" data-action="cancel">Cancelar</button>
+                    </div>
+                </div>
+                <div class="modal__content" hidden>
+                    <h2 class="modal__title">Oops!</h2>
+                    <p class="modal__message">Ocorreu um erro durante o upload do arquivo. Tentar novamente?</p>
+                    <div class="modal__actions modal__actions--center">
+                        <button class="modal__button" type="button" data-action="upload">Recomeçar</button>
+                        <button class="modal__button" type="button" data-action="cancel">Cancelar</button>
+                    </div>
+                </div>
+                <div class="modal__content" hidden>
+                    <h2 class="modal__title">Sucesso!</h2>
+                    <p class="modal__message">Upload realizado com sucesso</p>
+                    <div class="modal__actions modal__actions--center">
+                        <button class="modal__button" type="submit" data-action="copy">Iniciar Análise</button>
+                        <button class="modal__button" type="button" data-action="cancel">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+
+    <section class="container">
+        <h2 class="header">NOSSOS RECURSOS</h2>
+        <div class="features">
+            <div class="card">
+                <span><i class="ri-archive-line"></i></span>
+                <h4>Segurança que você pode confiar</h4>
+                <p>
+                    Seus arquivos nunca serão expostos ou vazados, toda nossa análise é sigilosa e segura.
+                </p>
+                <!--<a href="#">Join Now <i class="ri-arrow-right-line"></i></a>-->
+            </div>
+            <div class="card">
+                <span><i class="ri-bug-line"></i></span>
+                <h4>Análises Instantâneas</h4>
+                <p>
+                    Temos a capacidade de gerar análises em tempo super hábil, tornando sua experiência a mais eficaz e otimizada o possível.
+                </p>
+                <!--<a href="#">Join Now <i class="ri-arrow-right-line"></i></a>-->
+            </div>
+            <div class="card">
+                <span><i class="ri-history-line"></i></span>
+                <h4>Análise de Tráfego em Tempo Real</h4>
+                <p>
+                    Aproveite a capacidade do AI para analisar o tráfego em tempo real em sua rede, identificando possíveis ameaças e gerenciando o fluxo de tráfego de acordo.
+                </p>
+                <!--<a href="#">Join Now <i class="ri-arrow-right-line"></i></a>-->
+            </div>
+            <div class="card">
+                <span><i class="ri-computer-line"></i></span>
+                <h4>Dedução de possível ataque DDoS</h4>
+                <p>
+                    Com nossa solução, você pode reconhecer se sua rede sofreu algum ataque DDoS, garantindo a confibialidade da informação.
+                </p>
+                <!--<a href="#">Join Now <i class="ri-arrow-right-line"></i></a>-->
+            </div>
+        </div>
+    </section>
+
+    <header class="container">
+        <div class="image">
+            <img src="{{ url_for('static', filename='image-removebg-preview.png') }}">
+        </div>
+        <div class="content">
+            <span class="blur"></span>
+            <span class="blur"></span>
+
+            <H1>Aumente sua produtividade</H1>
+            <p>
+                Não perca mais tempo com análises de tráfego tão minuciosas, deixe esse trabalho com a gente!<br>
+
+                <br>Nossa solução te entrega resultados concretos e relevantes, transformando desafios complexos em oportunidades tangíveis e impulsionando o sucesso do seu trabalho.
+            </p>
+            <button class="btn" onclick="toggle()">Confira um exemplo de nossa análise</button>
+
+            
+        </div>
+
+    </header>
+
+
+    <!--<footer class="container">
+        <span class="blur"></span>
+        <span class="blur"></span>
+        <!--<div class="column">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='logo.png') }}">
+            </div>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
+            <div class="socials">
+                <a href="#"><i class="ri-youtube-line"></i></a>
+                <a href="#"><i class="ri-instagram-line"></i></a>
+                <a href="#"><i class="ri-twitter-line"></i></a>
+            </div>
+        </div>
+        <div class="column">
+            <h4>Company</h4>
+            <a href="#">Business</a>
+            <a href="#">Partnership</a>
+            <a href="#">Network</a>
+        </div>
+        <div class="column">
+            <h4>About Us</h4>
+            <a href="#">Blogs</a>
+            <a href="#">Channels</a>
+            <a href="#">Sponsors</a>
+        </div>
+        <div class="column">
+            <h4>Contact</h4>
+            <a href="#">Contact Us</a>
+            <a href="#">Privicy Policy</a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+    </footer>-->
+
+    <div class="copyright">
+        Developed by Eduardo Dias.
+    </div>
+
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
