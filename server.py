@@ -205,7 +205,7 @@ def perform_final_analysis(packets, tcp_likelihood, tcp_attack_type, flood_ip, u
         # Exemplo: Alguma consideração com base na contagem de pacotes
         if total_packets < 100:
             final_analysis = [
-                f"Total de pacotes: {total_packets}, todos os pacotes do arquivo '{file_name}' foram minuciosamente analisados, revelando insights valiosos com base no tráfego contido.",
+                f"Total de pacotes: {total_packets} todos os pacotes do arquivo '{file_name}' foram minuciosamente analisados, revelando insights valiosos com base no tráfego contido.",
                 "Tráfego Leve após a análise dos pacotes. O tráfego analisado indica um volume relativamente baixo de atividade na rede.",
                 "Os resultados indicam um volume de tráfego relativamente baixo, o que pode ser considerado normal.",
                 "Análise Geral: Não foram identificadas anomalias significativas nos pacotes analisados."
@@ -220,8 +220,8 @@ def perform_final_analysis(packets, tcp_likelihood, tcp_attack_type, flood_ip, u
         else:
             final_analysis = [
                 f"Total de pacotes: {total_packets}, todos os pacotes do arquivo '{file_name}' foram minuciosamente analisados, revelando insights valiosos com base no tráfego contido.",
-                "Tráfego Intenso após a análise dos pacotes. O tráfego analisado indica uma alta atividade na rede.",
-                "O volume de tráfego é substancial, indicando uma alta atividade na rede.",
+                "Tráfego Intenso após a análise dos pacotes. O tráfego analisado indica uma alta atividade na rede, não encontrado padrões que indicam a possibilidade de ataque DDoS.",
+                "O volume de tráfego é substancial, indicando uma alta atividade na rede. É importante ressaltar que, neste momento, não há indícios ou sinais de um ataque DDoS (Distributed Denial of Service) em andamento.",
                 "Análise Geral: Não foram observadas anomalias críticas nos padrões de tráfego analisados."
             ]
 
