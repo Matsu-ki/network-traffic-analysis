@@ -208,7 +208,7 @@ def perform_final_analysis(packets, tcp_likelihood, tcp_attack_type, flood_ip, u
                 f"Total de pacotes: {total_packets} todos os pacotes do arquivo '{file_name}' foram minuciosamente analisados, revelando insights valiosos com base no tráfego contido.",
                 "Tráfego Leve após a análise dos pacotes. O tráfego analisado indica um volume relativamente baixo de atividade na rede.",
                 "Os resultados indicam um volume de tráfego relativamente baixo, o que pode ser considerado normal.",
-                "Análise Geral: Não foram identificadas anomalias significativas nos pacotes analisados."
+                "Análise Geral: Não foram identificadas anomalias significativas nos pacotes analisados, aparentando ser um tráfego normal."
             ]
         elif total_packets < 1000:
             final_analysis = [
