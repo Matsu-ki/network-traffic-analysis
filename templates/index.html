@@ -3,12 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="imagex/png" href="{{ url_for('static', filename='robot.png') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style_index.css') }}">
-    <title>Neon | Análise PCAP</title>
+    <title>Neon | Análise de Tráfego</title>
 </head>
 <body>
+    <nav >
+        <div class="nav-logo">
+            <a href="#">
+                <img src="{{ url_for('static', filename='robot.png') }}">
+            </a>
+        </div>
 
+        <!--<ul class="nav-links">
+            <li class="link"><a href="#">Home</a></li>
+            <li id="link1" class="link"><a href="#">Features</a></li>
+            <li id="link2" class="link"><a href="#">Pricing</a></li>
+            <li id="link3" class="link"><a href="#">About</a></li>
+        </ul>
+        <button class="btn">Hire Me</button>-->
+    </nav>
 
     <header class="container" id="blur">
         <div class="content">
@@ -193,6 +208,41 @@
     </header>
 
 
+    <!--<footer class="container">
+        <span class="blur"></span>
+        <span class="blur"></span>
+        <!--<div class="column">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='logo.png') }}">
+            </div>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
+            <div class="socials">
+                <a href="#"><i class="ri-youtube-line"></i></a>
+                <a href="#"><i class="ri-instagram-line"></i></a>
+                <a href="#"><i class="ri-twitter-line"></i></a>
+            </div>
+        </div>
+        <div class="column">
+            <h4>Company</h4>
+            <a href="#">Business</a>
+            <a href="#">Partnership</a>
+            <a href="#">Network</a>
+        </div>
+        <div class="column">
+            <h4>About Us</h4>
+            <a href="#">Blogs</a>
+            <a href="#">Channels</a>
+            <a href="#">Sponsors</a>
+        </div>
+        <div class="column">
+            <h4>Contact</h4>
+            <a href="#">Contact Us</a>
+            <a href="#">Privicy Policy</a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+    </footer>-->
 
     <div class="copyright">
         Developed by Eduardo Dias.
